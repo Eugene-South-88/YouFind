@@ -1,9 +1,11 @@
 <template>
   <div>
     <SearchBar />
+
     <div v-if="store.error">
       Ошибка: {{ store.error }}
     </div>
+
     <div v-if="store.loading && store.videos.length === 0">
       Загрузка...
     </div>
@@ -26,22 +28,26 @@ import SearchBar from '../components/SearchBar.vue';
 import VideoList from '../components/VideoList.vue';
 import { useVideoStore } from '../store/videoStore';
 
+// Store
 const store = useVideoStore();
+
+// DOM элемент, за которым следит IntersectionObserver
 const loadTrigger = ref<HTMLElement | null>(null);
 
+// IntersectionObserver
 const observer = new IntersectionObserver(
     (entries) => {
-      if (entries[0].isIntersecting && store.nextPageToken && !store.loading) {
+      const entry = entries[0];
+      if (entry.isIntersecting && store.nextPageToken && !store.loading) {
         store.fetchVideos(store.query, store.filter, store.nextPageToken);
       }
     },
-    {
-      threshold: 1.0,
-    }
+    { threshold: 1.0 }
 );
 
 onMounted(() => {
-  store.fetchVideos(store.query, store.filter); // инициализация
+  // Первая загрузка
+  store.fetchVideos(store.query, store.filter);
 
   watchEffect(() => {
     if (loadTrigger.value) {

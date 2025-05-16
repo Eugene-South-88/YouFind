@@ -1,49 +1,8 @@
 import axios from 'axios';
+import type {SearchResponse, VideoDetailsItem, VideoDetailsResponse} from "../types/types.ts";
 
-const API_KEY = 'AIzaSyB5MOGK4G6Mi0Z3KAD8ZVlEHLIxV0Lefro';
+const API_KEY = 'AIzaSyAt8orGkiTmSQ8-TqO3sceItLJXMO4MkSg';
 const BASE_URL = 'https://www.googleapis.com/youtube/v3';
-
-interface VideoId {
-    videoId: string;
-}
-
-interface SearchItem {
-    id: VideoId;
-}
-
-interface VideoSnippet {
-    title: string;
-    description: string;
-    thumbnails: {
-        default: { url: string };
-        medium: { url: string };
-        high: { url: string };
-    };
-    channelTitle: string;
-    publishedAt: string;
-}
-
-interface VideoStatistics {
-    viewCount: string;
-    likeCount: string;
-    dislikeCount?: string;
-    commentCount?: string;
-}
-
-interface VideoDetailsItem {
-    id: string;
-    snippet: VideoSnippet;
-    statistics: VideoStatistics;
-}
-
-interface SearchResponse {
-    items: SearchItem[];
-    nextPageToken?: string;
-}
-
-interface VideoDetailsResponse {
-    items: VideoDetailsItem[];
-}
 
 export const searchVideos = async (
     query: string,
@@ -59,13 +18,12 @@ export const searchVideos = async (
         order: filter || 'relevance',
     };
 
-    // Добавляем pageToken только если он непустой
     if (pageToken) {
         params.pageToken = pageToken;
     }
 
     try {
-        const response = await axios.get<SearchResponse>(`${BASE_URL}/search`, { params });
+        const response = await axios.get<SearchResponse>(`${BASE_URL}/search`, {params});
 
         const videoIds = response.data.items.map((item) => item.id.videoId).join(',');
 

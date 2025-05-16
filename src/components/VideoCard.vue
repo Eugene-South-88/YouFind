@@ -1,25 +1,44 @@
 <template>
   <div class="video-card">
-    <img :src="video.snippet.thumbnails.medium.url" alt="" />
+    <img :src="video.snippet.thumbnails.medium.url" alt="preview" />
     <div class="info">
       <h3>{{ video.snippet.title }}</h3>
       <p>Канал: {{ video.snippet.channelTitle }}</p>
       <p>Просмотры: {{ video.statistics?.viewCount }}</p>
-      <button @click="$emit('toggle-favorite', video)">
-        {{ isFavorite ? 'Удалить из избранного' : 'В избранное' }}
+      <button @click="emitToggleFavorite">
+        {{ buttonText }}
       </button>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { computed, defineProps } from 'vue';
-import { useVideoStore } from '../store/videoStore.ts';
 
-const props = defineProps<{ video: any }>();
+<script lang="ts" setup>
+import { computed, defineProps, defineEmits } from 'vue';
+import { useVideoStore } from '../store/videoStore';
+import type { VideoDetailsItem } from '../types/types.ts';
+
+const props = defineProps<{
+  video: VideoDetailsItem;
+}>();
+
+const emit = defineEmits<{
+  (e: 'toggle-favorite', video: VideoDetailsItem): void;
+}>();
+
 const store = useVideoStore();
 
-const isFavorite = computed(() => store.favorites.some(v => v.id === props.video.id));
+const isFavorite = computed(() =>
+    store.favorites.some((v: VideoDetailsItem) => v.id === props.video.id)
+);
+
+const buttonText = computed(() =>
+    isFavorite.value ? 'Удалить из избранного' : 'В избранное'
+);
+
+const emitToggleFavorite = () => {
+  emit('toggle-favorite', props.video);
+};
 </script>
 
 <style scoped lang="scss">
@@ -83,4 +102,3 @@ const isFavorite = computed(() => store.favorites.some(v => v.id === props.video
   }
 }
 </style>
-
