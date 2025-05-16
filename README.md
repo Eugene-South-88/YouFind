@@ -35,9 +35,6 @@ cd your-repo-name
 # 3. Установить зависимости
 npm install
 
-# 4. Создать файл .env с API-ключом YouTube
-echo "VITE_YOUTUBE_API_KEY=ваш_api_ключ" > .env
-
-# 5. Запустить проект
+# 4. Запустить проект
 npm run dev
 </code></pre>
