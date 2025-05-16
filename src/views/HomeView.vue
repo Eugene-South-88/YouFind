@@ -28,26 +28,22 @@ import SearchBar from '../components/SearchBar.vue';
 import VideoList from '../components/VideoList.vue';
 import { useVideoStore } from '../store/videoStore';
 
-// Store
 const store = useVideoStore();
 
-// DOM элемент, за которым следит IntersectionObserver
 const loadTrigger = ref<HTMLElement | null>(null);
 
-// IntersectionObserver
 const observer = new IntersectionObserver(
     (entries) => {
       const entry = entries[0];
       if (entry.isIntersecting && store.nextPageToken && !store.loading) {
-        store.fetchVideos(store.query, store.filter, store.nextPageToken);
+        store.fetchVideos('', 'relevance', store.nextPageToken);
       }
     },
     { threshold: 1.0 }
 );
 
 onMounted(() => {
-  // Первая загрузка
-  store.fetchVideos(store.query, store.filter);
+  store.fetchVideos('', 'relevance');
 
   watchEffect(() => {
     if (loadTrigger.value) {
