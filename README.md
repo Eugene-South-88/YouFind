@@ -1,5 +1,43 @@
-# Vue 3 + TypeScript + Vite
+<h1>🎬 YouTube Video Search App (Vue + Vite)</h1>
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+<p>
+  Это одностраничное приложение, позволяющее искать видео с YouTube, просматривать информацию о них и добавлять избранные ролики. Приложение использует <strong>YouTube Data API v3</strong>, написано на <strong>Vue 3</strong>, <strong>TypeScript</strong>, <strong>Pinia</strong> и <strong>Vite</strong>.
+</p>
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+<h2>🚀 Функциональность</h2>
+<ul>
+  <li>🔎 Поиск видео по запросу</li>
+  <li>📺 Отображение информации о видео (название, автор, просмотры)</li>
+  <li>❤️ Добавление и удаление видео в "Избранное"</li>
+  <li>♻️ Бесконечная прокрутка</li>
+  <li>📱 Адаптивная вёрстка для мобильных устройств</li>
+  <li>⚠️ Обработка ошибок и состояний</li>
+</ul>
+
+<h2>🛠️ Технологии</h2>
+<ul>
+  <li>Vue 3 + Composition API</li>
+  <li>TypeScript</li>
+  <li>Pinia</li>
+  <li>Vite</li>
+  <li>YouTube API</li>
+  <li>CSS / SCSS </li>
+</ul>
+
+<h2>📦 Установка и запуск</h2>
+<pre><code>
+# 1. Клонировать репозиторий
+git clone https://github.com/your-username/your-repo-name.git
+
+# 2. Перейти в папку проекта
+cd your-repo-name
+
+# 3. Установить зависимости
+npm install
+
+# 4. Создать файл .env с API-ключом YouTube
+echo "VITE_YOUTUBE_API_KEY=ваш_api_ключ" > .env
+
+# 5. Запустить проект
+npm run dev
+</code></pre>
